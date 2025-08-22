@@ -26,17 +26,15 @@ def HTMLFormatting( element , modifiers , value ):
     n = '\n'
     t = '\t'
     elements = {
-        'rows' : f'{ n }{ t*3 }<tr>{ value }{ n }{ t*3 }</tr>',
-        'headers' : f'{ n }{ t*4 }<th { modifiers }>{ value }{ n }{ t*4 }</th>',
-        'data' : f'{ n }{ t*4 }<td { modifiers }>{ value }{ n }{ t*4 }</td>',
-        'paragraph' : f'{ n }{ t*5 }<p { modifiers }>{ value }</p>',
+        'rows' : f'{ n }{ t*2 }<tr>{ value }{ n }{ t*2 }</tr>',
+        'headers' : f'{ n }{ t*2 }<th { modifiers }>{ value }{ n }{ t*2 }</th>',
+        'data' : f'{ n }{ t*3 }<td { modifiers }>{ value }{ n }{ t*3 }</td>',
+        'paragraph' : f'{ n }{ t*4 }<p { modifiers }>{ value }</p>',
         'span' : f'<span { modifiers }>{ value }</span>'
         }
     return elements[ element ]
 
-def HTMLTable( Design , Body ):
-    Body = '\n\t<tbody>\n\t\t{ Body }\n\t</tbody>'
-    return f'<table{ Design }>{ Body }\n</table>'
+def HTMLTable( Design , Body ): return f'<table{ Design }>\n\t<tbody>\t{ Body }\n\t</tbody>\n</table>'
 
 def SetFormat( **formatting ):
     formats = [
@@ -174,6 +172,6 @@ for row in RowSets:
         ConcatValues = ''.join( ConcatValues )
         TableBody += [ HTMLFormatting( 'rows' , '' , ConcatValues ) ]
 TableBody = ''.join( TableBody )
-print ( TableBody )
         
-OutputHTML = HTMLTable( TableDesign, None )
+OutputHTML = HTMLTable( TableDesign, TableBody )
+print( OutputHTML )
